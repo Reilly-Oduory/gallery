@@ -2,7 +2,7 @@
 This an app for storing pictures and brief descriptions for storing memories.
 
 ## Author
-[Reilly]('https://github.com/Reilly-Oduory')
+[Reilly](https://github.com/Reilly-Oduory)
 
 ### Tech Used
 - Django
