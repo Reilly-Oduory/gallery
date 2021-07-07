@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ block.super }}
+    <div class="container">
+        <div class="row results">
+            {% if images %}
+            <h2>Found {{ images|length }} Image of category {{message}}</h2>
+            {% else %}
+            <h2> Found 0 Images for the category {{message}}</h2>
+            {% endif %}
+        </div>
+        <div class="row">
+        {% if images %}
+            {% for image in images %}
+            <div class="card">
+                    <div class="card-img-top">
+                        <img src="{{ image.image.url }}">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title">{{ image.image_name }}</h4>
+                        <p class="card-text">{{ image.image_description | truncatewords:10 }}</p>
+                        <div class="tags">
+                            <h5 class="text-left-edit"><span class="badge bg-info">{{ image.category }}</span></h5>
+                            <h5 class="text-right-edit"><span class="badge bg-info">{{ image.location }}</span></h5>
+                        </div>
+                        <br>
+                        <br>
+                        <a href="{% url 'image' image_id=image.id %}" class="card-link btn btn-outline-info">View More</a>                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

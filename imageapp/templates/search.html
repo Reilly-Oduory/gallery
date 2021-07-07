@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ block.super }}
+    <div class="container">
+        <div class="row results">
+            {% if filtered_images%}
+            <h2>Found {{ filtered_images|length }} Image of searched term {{message}}</h2>
+            {% else %}
+            <h2> Found 0 articles for the search term {{message}}</h2>
+            {% endif %}
+        </div>
+        <div class="row">
+        {% if filtered_images %}
+            {% for filtered_image in filtered_images %}
+            <div class="card">
+                    <div class="card-img-top">
+                        <img src="{{ filtered_image.image.url }}">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title">{{ filtered_image.image_name }}</h4>
+                        <p class="card-text">{{ filtered_image.image_description | truncatewords:10 }}</p>
+                        <div class="tags">
+                            <h5 class="text-left-edit"><span class="badge bg-info">{{ filtered_image.category }}</span></h5>
+                            <h5 class="text-right-edit"><span class="badge bg-info">{{ filtered_image.location }}</span></h5>
+                        </div>
+                        <br>
+                        <br>
+                        <a href="{% url 'image' image_id=filtered_image.id %}" class="card-link btn btn-outline-info">View More</a>
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

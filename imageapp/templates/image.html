@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {{ block.super }}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 image-div">
+                <img src="{{ image.image.url }}" class="image" id="copyurl">
+                <br>
+                <br>
+                <div class="text-center">
+                    <button onclick="textCopier(event)" class="btn btn-primary">Copy Image Location</button>
+                </div>
+            </div>
+            <div class="col-md-6 pt-4-edit">
+                <h1 class="image_name">{{ image.image_name }}</h1>
+                <p class="image_desc">{{ image.image_description }}</p>
+                <h6 class="text-right-edit"><span class="badge bg-secondary">{{ image.category }}</span></h6>
+                <h6 class="text-right-edit"><span class="badge bg-secondary">{{ image.location }}</span></h6>
+                <br>
+                <div class="text-center">
+                    <a href="{% url 'new_comment' image_id=image.id %}" class="card-link card-link-color btn btn-info">Comment</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <h4 class="comment-title text-center">Comments</h4>
+            {% for comment in comments %}
+                <div class="row">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ comment.title }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.content }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>Found 0 Comments for {{ image.image_name }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
